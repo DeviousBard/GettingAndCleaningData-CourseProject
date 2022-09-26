@@ -1,7 +1,5 @@
-<p align="center">
 # Getting and Cleaning Data - Course Project
 ## Code Book
-</p>
 The data in in the code book is for the "Getting and Cleaning Data - Course 
 Project" in the Johns Hopkins University Data Science Specialist track.  The
 data is extracted from raw data obtained from the gyroscopic and accelerometer
@@ -85,6 +83,7 @@ The following are the columns for the data:
 1. fBodyBodyGyroJerkMag_mean - (numeric) The average of the fbody gyroscopic jerk magnet mean reading
 1. fBodyBodyGyroJerkMag_std - (numeric) The average of the fbody gyroscopic jerk magnet standard deviation reading
 
+## Data Cleaning Explanation
 The summarized data was extracted from the raw data by running the 
 "run_analysis.R" file.  There are eight files from which the the raw data was 
 extracted and combined to form the final summarized data.  The following are the
