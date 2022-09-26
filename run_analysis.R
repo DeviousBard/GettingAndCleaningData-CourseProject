@@ -10,10 +10,8 @@ if (!require("readr")) install.packages("readr")
 library(readr)
 if (!require("dplyr")) install.packages("dplyr")
 library(dplyr)
-if (!require("tidyr")) install.packages("tidyr")
-library(tidyr)
-if (!require("lubridate")) install.packages("lubridate")
-library(lubridate)
+if (!require("stringr")) install.packages("stringr")
+library(stringr)
 
 
 # Read the feature names from the "features.txt" file. These names will become 
@@ -37,6 +35,13 @@ feature_names <- as.vector(temp$name[
     grepl("\\-mean\\(\\)", temp$name) | 
         grepl("\\-std\\(\\)", temp$name)
 ])
+
+# Clean up the feature names to remove all non-alphanumeric characters, and 
+# replace all hyphens with under bars.
+for (index in seq(1:length(feature_names))) {
+    feature_names[index] <- str_replace_all(feature_names[index], "[^A-Za-z\\-\\d]", "")
+    feature_names[index] <- str_replace_all(feature_names[index], "\\-", "_")
+}
 
 # Remove the temporary variables created to build the feature names vectors.
 rm(temp)
@@ -215,7 +220,7 @@ rm(feature_names)
 # Get the mean of each accelerometer reading by subject and activity
 acc_data_mean <- acc_data %>%
     group_by(subject, activity) %>% 
-    summarize(across(`tBodyAcc-mean()-X`:`fBodyBodyGyroJerkMag-std()`, mean))
+    summarize(across(tBodyAcc_mean_X:fBodyBodyGyroJerkMag_std, mean))
 
 # Output the "acc_data_mean" table to a text file named "acc_data_mean.txt"
 write.table(acc_data_mean, file = "acc_data_mean.txt", 
